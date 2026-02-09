@@ -21,23 +21,26 @@ public class Usuario implements Comparable<Usuario> {
         this.nomeUsua = nomeUsua;
     }
 
-    public String getDataHora() {
+    public String stringDataHora() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         return dataHora.format(dateTimeFormatter);
+    }
+
+    public LocalDateTime getDataHora(){
+        return dataHora;
     }
 
     public void setDataHora(LocalDateTime dataHora) {
         this.dataHora = dataHora;
     }
 
-
     @Override
     public int compareTo(Usuario outro) {
-        return - getDataHora().compareTo(outro.getDataHora());
+        return - this.dataHora.compareTo(outro.dataHora);
     }
 
     @Override
     public String toString() {
-        return getNomeUsua() + ", " + getDataHora();
+        return getNomeUsua() + ", " + stringDataHora();
     }
 }

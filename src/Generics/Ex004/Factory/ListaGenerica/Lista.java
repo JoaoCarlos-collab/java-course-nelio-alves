@@ -4,10 +4,8 @@ import java.util.*;
 public class Lista{
     private List<String> lista = new ArrayList<>();
     private Set<String> listaSet = new LinkedHashSet<>();
-    public Lista() {
-    }
 
-
+    public Lista() {}
 
     public void adcLista (String elemento){
         lista.add(elemento);

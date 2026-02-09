@@ -5,32 +5,37 @@ import Generics.Ex004.Factory.ListaGenerica.Lista;
 import java.io.*;
 
 public class Doc {
-    private static String folderPath;
-    private static String filePath;
-    private static File path;
+    private String folderPath;
+    private String filePath;
+    private File path;
 
 
     public Doc() {
     }
 
-    public static File getFolderPath() {
+    public Doc(String folderPath, String filePath) {
+        this.folderPath = folderPath;
+        this.filePath = filePath;
+    }
+
+    public File getFolderPath() {
         return new File(folderPath);
     }
 
-    public static void setFolderPath(String folderPath) {
-        Doc.folderPath = folderPath;
+    public void setFolderPath(String folderPath) {
+        this.folderPath = folderPath;
     }
 
-    public static File getFilePath() {
+    public File getFilePath() {
         return new File(filePath);
     }
 
-    public static void setFilePath(String filePath) {
-        Doc.filePath = filePath;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
-    public static void setPath(){
-        Doc.path = new File(getFolderPath(), String.valueOf(getFilePath()));
+    public void setPath(){
+        path = new File(getFolderPath(), String.valueOf(getFilePath()));
     }
 
     public void criandoArqui(){
