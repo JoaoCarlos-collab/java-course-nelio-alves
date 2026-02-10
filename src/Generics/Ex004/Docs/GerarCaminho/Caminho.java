@@ -5,13 +5,16 @@ import java.io.File;
 public class Caminho {
     private String nomeServidor;
     private String nomeServico;
-    private String localServidor;
+    private final String localServidor = "C:\\Users\\jo029\\Desktop\\MeusCodigos\\Dominando_Javinha\\java-course-nelio-alves\\src\\Generics\\Ex004\\Docs";
     private String servidorCompleto;
 
-    public Caminho(String nomeServidor, String nomeServico, String localServidor) {
+    public Caminho(String nomeServidor, String nomeServico) {
         this.nomeServidor = nomeServidor;
         this.nomeServico = nomeServico;
-        this.localServidor = localServidor;
+        servidoServico();
+    }
+
+    public Caminho() {
     }
 
     public String getNomeServidor() {
@@ -34,10 +37,6 @@ public class Caminho {
         return localServidor;
     }
 
-    public void setLocalServidor(String localServidor) {
-        this.localServidor = localServidor;
-    }
-
     public void servidoServico(){
 
         File criandoServidor = new File(localServidor,nomeServidor);
@@ -45,4 +44,7 @@ public class Caminho {
         this.servidorCompleto = String.valueOf(criandoServico);
     }
 
+    public String exibirCamiServi(){
+        return servidorCompleto;
+    }
 }

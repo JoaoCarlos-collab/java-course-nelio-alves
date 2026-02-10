@@ -1,4 +1,5 @@
 package Generics.Ex004.Docs.GerarDoc;
+import Generics.Ex004.Docs.GerarCaminho.Caminho;
 import Generics.Ex004.Entities.Usuario.Usuario;
 import Generics.Ex004.Factory.ListaGenerica.Lista;
 
@@ -39,6 +40,8 @@ public class Doc {
     }
 
     public void criandoArqui(){
+
+        Caminho caminhoServidor = new Caminho();
 
         if (!getFolderPath().exists()){
             boolean pasta = getFolderPath().mkdirs();
