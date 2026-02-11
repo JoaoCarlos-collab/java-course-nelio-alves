@@ -1,19 +1,13 @@
 package Generics.Ex004.Factory.ListaCaminhoServidor;
 import Generics.Ex004.Docs.GerarCaminho.Caminho;
 import Generics.Ex004.Entities.Usuario.Usuario;
+import Generics.Ex004.Factory.ListaGenerica.Lista;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
-import static java.nio.file.StandardOpenOption.APPEND;
 
 public class Mapservidor {
     private static Map<String, List<Caminho>> mapaServidores = new TreeMap<>();
@@ -101,10 +95,8 @@ public class Mapservidor {
         if (caminhoServidor.exists()){
 
             if (caminhoServico.exists()){
-                Caminho caminhoGeral = new Caminho();
-                Path caminhoServidorServico = Path.of(caminhoGeral.exibirCamiServi(), nomeServidor, nomeServico);
 
-                try (BufferedWriter bfw = Files.newBufferedWriter(caminhoServidorServico, APPEND)){
+                try (BufferedWriter bfw = new BufferedWriter(new FileWriter(caminhoServico, true))){
                     bfw.write(String.valueOf(usuario));
                     bfw.newLine();
                     System.out.println("Usuário: "+ usuario.getNomeUsua());
@@ -124,6 +116,40 @@ public class Mapservidor {
 
         }else {
             System.out.println("Esse servidor "+nomeServidor+" não existe");
+        }
+    }
+
+    public static void relatorioAcesso(String nomeServidor, String nomeServico){
+        Caminho caminho = new Caminho();
+        String caminhoBase = caminho.getLocalServidor();
+        File caminhoServidor = new File(caminhoBase, nomeServidor);
+        File caminhoServico = new File(caminhoServidor,nomeServico+".txt");
+
+        if (caminhoServidor.exists()){
+
+            if (caminhoServico.exists()) {
+
+                try (BufferedReader bfr = new BufferedReader(new FileReader(caminhoServico))){
+                    Lista lista = new Lista();
+                    String linha;
+
+                    while ((linha = bfr.readLine()) != null){
+                        String [] vetor = linha.split(",");
+                        lista.adcListaSet(vetor[0]);
+                        lista.adcLista(linha);
+                    }
+
+                    System.out.println("Esses foram todos os acessos:");
+                    lista.exiblista();
+                    System.out.println("Esses foram todas as pessoas que acessaram");
+                    lista.exibListaSet();
+
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 }

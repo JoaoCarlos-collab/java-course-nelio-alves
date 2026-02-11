@@ -100,6 +100,7 @@ public class Doc {
             Lista lista = new Lista();
             String linha;
             while ((linha = bfr.readLine()) != null){
+                //Faltou colocar a condição aqui .thim().isempty()
                 String [] vetor = linha.split(",");
                 lista.adcListaSet(vetor[0]);
                 lista.adcLista(linha);

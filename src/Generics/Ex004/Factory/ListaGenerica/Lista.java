@@ -22,9 +22,9 @@ public class Lista{
     }
 
     public void exibListaSet (){
-        System.out.println("Numero de usuários que acessaram: "+listaSet.size());
         for(String setList : listaSet){
             System.out.println(setList);
         }
+        System.out.println("Numero de usuários que acessaram: "+listaSet.size());
     }
 }
