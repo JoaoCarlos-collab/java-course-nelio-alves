@@ -1,11 +1,19 @@
 package Generics.Ex004.Factory.ListaCaminhoServidor;
 import Generics.Ex004.Docs.GerarCaminho.Caminho;
+import Generics.Ex004.Entities.Usuario.Usuario;
+
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import static java.nio.file.StandardOpenOption.APPEND;
 
 public class Mapservidor {
     private static Map<String, List<Caminho>> mapaServidores = new TreeMap<>();
@@ -84,24 +92,38 @@ public class Mapservidor {
         }
     }
 
-    public static String entrarServidor (String nomeServidor, String servico){
-        String caminho = null;
-        if (mapaServidores.containsKey(nomeServidor)){
-            List <Caminho> servicos = mapaServidores.get(nomeServidor);
+    public static void entrarServidor (String nomeServidor, String nomeServico, Usuario usuario){
+        Caminho caminho = new Caminho();
+        String caminhoBase = caminho.getLocalServidor();
+        File caminhoServidor = new File(caminhoBase, nomeServidor);
+        File caminhoServico = new File(caminhoServidor,nomeServico+".txt");
 
-            for (Caminho c : servicos){
-                if (c.getNomeServico().equalsIgnoreCase(servico)){
-                    caminho = c.exibirCamiServi();
+        if (caminhoServidor.exists()){
+
+            if (caminhoServico.exists()){
+                Caminho caminhoGeral = new Caminho();
+                Path caminhoServidorServico = Path.of(caminhoGeral.exibirCamiServi(), nomeServidor, nomeServico);
+
+                try (BufferedWriter bfw = Files.newBufferedWriter(caminhoServidorServico, APPEND)){
+                    bfw.write(String.valueOf(usuario));
+                    bfw.newLine();
+                    System.out.println("Usuário: "+ usuario.getNomeUsua());
+                    System.out.println("Entrou no servidor: "+ nomeServico);
+                    System.out.println("E acessou o serviço: "+ nomeServico);
+                    System.out.println("No dia/hora: "+ usuario.getDataHora());
                 }
 
-                else {
-                    System.out.println("Esse serviço não existe");
+                catch (IOException e) {
+                    System.out.println("Não foi possível entrar no servidor "+nomeServidor+" e no serviço "+nomeServico);
                 }
             }
+
+            else {
+                System.out.println("Esse serviço "+nomeServico+" não existe");
+            }
+
+        }else {
+            System.out.println("Esse servidor "+nomeServidor+" não existe");
         }
-        else {
-            System.out.println("Esse servidor não existe");
-        }
-        return caminho;
     }
 }
