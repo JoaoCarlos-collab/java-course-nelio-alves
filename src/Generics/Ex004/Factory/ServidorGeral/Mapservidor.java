@@ -1,7 +1,8 @@
-package Generics.Ex004.Factory.ListaCaminhoServidor;
+package Generics.Ex004.Factory.ServidorGeral;
 import Generics.Ex004.Docs.GerarCaminho.Caminho;
 import Generics.Ex004.Entities.Usuario.Usuario;
 import Generics.Ex004.Factory.ListaGenerica.Lista;
+import Generics.Ex004.Service.TimeSleep;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -16,12 +17,18 @@ public class Mapservidor {
 
         if (mapaServidores.containsKey(nomeServidor)){
             System.out.println("Este servidor "+nomeServidor+" está funcionando");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             List<Caminho> listaServico = mapaServidores.get(nomeServidor);
 
             for (Caminho servicos : listaServico){
 
                 if (servicos.getNomeServico().equalsIgnoreCase(servico)){
                     System.out.println("Esse serviço "+servico+" já existe no servidor "+nomeServidor+", tente criar outro diferente");
+                    TimeSleep.esperar(2000);
                     return;
                 }
             }
@@ -34,11 +41,13 @@ public class Mapservidor {
             if (!caminhoServidor.exists()){
                 if (caminhoServidor.mkdirs()){
                     System.out.println("Este servidor tinha sido apagado e foi recriado");
+                    TimeSleep.esperar(2000);
                 }
             }
             try {
                 if (caminhoServico.createNewFile()){
                     System.out.println("O serviço "+servico+" foi adicionado ao servidor "+nomeServidor);
+                    TimeSleep.esperar(2000);
                 }
 
             }catch (IOException e){
@@ -48,6 +57,7 @@ public class Mapservidor {
 
         else {
             System.out.println("Este servidor ainda não existe, vamos criar agora !");
+            TimeSleep.esperar(2000);
             List<Caminho> novosServicos = new ArrayList<>();
             novosServicos.add(new Caminho(nomeServidor, servico));
             mapaServidores.putIfAbsent(nomeServidor, novosServicos);
@@ -59,6 +69,7 @@ public class Mapservidor {
 
                 if (servidor.mkdirs()){
                     System.out.println("Servidor criado com sucesso: "+servidor);
+                    TimeSleep.esperar(2000);
 
                 }
 
@@ -73,6 +84,7 @@ public class Mapservidor {
 
                 if (servidorServico.createNewFile()){
                     System.out.println("Serviço criado: "+ servidorServico);
+                    TimeSleep.esperar(2000);
                 }
 
                 else {
@@ -100,9 +112,13 @@ public class Mapservidor {
                     bfw.write(String.valueOf(usuario));
                     bfw.newLine();
                     System.out.println("Usuário: "+ usuario.getNomeUsua());
-                    System.out.println("Entrou no servidor: "+ nomeServico);
+                    TimeSleep.esperar(1000);
+                    System.out.println("Entrou no servidor: "+ nomeServidor);
+                    TimeSleep.esperar(1000);
                     System.out.println("E acessou o serviço: "+ nomeServico);
-                    System.out.println("No dia/hora: "+ usuario.getDataHora());
+                    TimeSleep.esperar(1000);
+                    System.out.println("No dia/hora: "+ usuario.stringDataHora());
+                    TimeSleep.esperar(1000);
                 }
 
                 catch (IOException e) {
@@ -134,15 +150,21 @@ public class Mapservidor {
                     String linha;
 
                     while ((linha = bfr.readLine()) != null){
-                        String [] vetor = linha.split(",");
-                        lista.adcListaSet(vetor[0]);
-                        lista.adcLista(linha);
+
+                        if(!linha.trim().isEmpty()){
+                            String [] vetor = linha.split(",");
+                            lista.adcListaSet(vetor[0]);
+                            lista.adcLista(linha);
+                        }
                     }
 
                     System.out.println("Esses foram todos os acessos:");
                     lista.exiblista();
+                    TimeSleep.esperar(1000);
+                    System.out.println("------------------------------------------------");
                     System.out.println("Esses foram todas as pessoas que acessaram");
                     lista.exibListaSet();
+                    TimeSleep.esperar(1000);
 
                 } catch (FileNotFoundException e) {
                     throw new RuntimeException(e);
