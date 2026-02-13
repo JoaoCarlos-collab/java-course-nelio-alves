@@ -5,8 +5,8 @@ public class Pessoa {
     private int idade;
 
     public Pessoa(String nome, int idade) {
-        this.idade = idade;
         this.nome = nome;
+        this.idade = idade;
     }
 
     public String getNome() {
@@ -21,17 +21,17 @@ public class Pessoa {
         return idade;
     }
 
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
     public String getIdadeString() {
         String idadeString = String.valueOf(idade);
         return idadeString;
     }
 
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
     @Override
     public String toString() {
-        return nome + ", "+ idade;
+        return getNome() + ", "+ getIdade();
     }
 }
