@@ -1,6 +1,6 @@
-package ProgramacaoFuncional.Comparator.Aplication;
-import ProgramacaoFuncional.Comparator.Entities.Pessoas.Pessoa;
-import ProgramacaoFuncional.Comparator.Factory.List.Lista;
+package ProgramacaoFuncional.Ex001.Comparator.Aplication;
+import ProgramacaoFuncional.Ex001.Comparator.Entities.Pessoas.Pessoa;
+import ProgramacaoFuncional.Ex001.Comparator.Factory.List.Lista;
 
 public class Main {
     public static void main (String[] args){
@@ -20,6 +20,8 @@ public class Main {
         Pessoa p7 = new Pessoa("Amanda", 50);
         lista.adcList(p7);
 
-        lista.listaOrdenadaNomeIdade();
+
+        System.out.println("------------------------------------------------------");
+        lista.exibirLista();
     }
 }

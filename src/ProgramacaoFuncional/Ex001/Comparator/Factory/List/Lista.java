@@ -1,5 +1,5 @@
-package ProgramacaoFuncional.Comparator.Factory.List;
-import ProgramacaoFuncional.Comparator.Entities.Pessoas.Pessoa;
+package ProgramacaoFuncional.Ex001.Comparator.Factory.List;
+import ProgramacaoFuncional.Ex001.Comparator.Entities.Pessoas.Pessoa;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -23,5 +23,9 @@ public class Lista {
         for (Pessoa pessoa : listaPessoas){
             System.out.println(pessoa);
         }
+    }
+
+    public void exibirLista(){
+        listaPessoas.forEach(System.out::println);
     }
 }

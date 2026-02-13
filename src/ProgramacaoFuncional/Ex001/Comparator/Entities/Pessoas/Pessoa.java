@@ -1,4 +1,4 @@
-package ProgramacaoFuncional.Comparator.Entities.Pessoas;
+package ProgramacaoFuncional.Ex001.Comparator.Entities.Pessoas;
 
 public class Pessoa {
     private String nome;
